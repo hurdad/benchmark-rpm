@@ -1,6 +1,6 @@
 # benchmark-rpm
 SHELL := /bin/bash 
-version = 1.3.0
+version = 1.4.1
 name = benchmark
 full_name = $(name)-$(version)
 download_url = "https://github.com/google/$(name)/archive/v$(version).tar.gz"
@@ -22,7 +22,6 @@ download: mkdir
 	curl -L -o rpmbuild/SOURCES/$(full_name).tar.gz $(download_url); 
 
 rpm: download
-	cp so.patch rpmbuild/SOURCES
 	rpmbuild $(RPM_OPTS) \
 	  --define "_topdir %(pwd)" \
 	  --define "_builddir %{_topdir}/rpmbuild/BUILD" \
