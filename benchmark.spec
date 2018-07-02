@@ -21,6 +21,13 @@ Requires:	%{name} = %{version}
 %description devel
 Development files for %{name}.
 
+%package tools
+Summary:        tools files for %{name}
+Requires:       %{name} = %{version}-%{release}
+Requires:	python
+%description tools
+Python Tools for the %{name}
+
 %prep
 %setup -n %{name}-%{version}
 
@@ -32,6 +39,8 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 mv $RPM_BUILD_ROOT/usr/lib $RPM_BUILD_ROOT%{_libdir}
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -R tools $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -54,5 +63,8 @@ ldconfig
 %{_includedir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/cmake/%{name}/*.cmake
+
+%files tools
+%{_datadir}/%{name}
 
 %changelog
